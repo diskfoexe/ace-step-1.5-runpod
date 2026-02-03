@@ -13,6 +13,7 @@ parser.add_argument('docker', type=str, help='Name of the Docker image to build'
 parser.add_argument('--username', type=str, default="valyriantech", help=f"Tag to use. Defaults to today's date: valyriantech")
 parser.add_argument('--tag', type=str, default=today_tag, help=f"Tag to use. Defaults to today's date: {today_tag}")
 parser.add_argument('--latest', action="store_true", help='If specified, we will also tag and push :latest')
+parser.add_argument('--hf-token', type=str, default=None, help='HuggingFace token for downloading gated models')
 args = parser.parse_args()
 
 logger = logging.getLogger()
@@ -33,13 +34,15 @@ def docker_command(command):
     except Exception as e:
         raise e
 
-def build(docker_repo, tag, from_docker=None):
+def build(docker_repo, tag, from_docker=None, hf_token=None):
     docker_container = f"{username}/{docker_repo}:{tag}"
     logger.info(f"Building and pushing {docker_container}")
 
     docker_build_arg = f"--progress=plain -t {docker_container}"
     if from_docker is not None:
         docker_build_arg += f" --build-arg DOCKER_FROM={from_docker}"
+    if hf_token is not None:
+        docker_build_arg += f" --build-arg HF_TOKEN={hf_token}"
 
     build_command = f"docker build {docker_build_arg} {project_dir}"
     push_command = f"docker push {docker_container}"
@@ -56,7 +59,7 @@ def tag(source_container, target_container):
 
 
 try:
-    container = build(args.docker, args.tag)
+    container = build(args.docker, args.tag, hf_token=args.hf_token)
     logger.info(f"Successfully built and pushed the container to {container}")
 
     if args.latest:

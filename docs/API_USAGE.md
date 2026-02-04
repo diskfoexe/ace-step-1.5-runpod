@@ -22,7 +22,6 @@ https://<POD_ID>-8000.proxy.runpod.net
 | `/v1/models` | GET | List available models |
 | `/release_task` | POST | Create music generation task |
 | `/query_result` | POST | Query task results |
-| `/create_random_sample` | POST | Generate random music parameters via LLM |
 | `/format_input` | POST | Format and enhance lyrics/caption via LLM |
 | `/v1/audio` | GET | Download generated audio file |
 
@@ -287,16 +286,6 @@ Ending lyrics
 ```
 
 ## LLM-Powered Features
-
-### Generate Random Sample Parameters
-
-Let the LLM create random music parameters for you:
-
-```bash
-curl -X POST http://localhost:8000/create_random_sample \
-  -H "Content-Type: application/json" \
-  -d '{}'
-```
 
 ### Format/Enhance Lyrics
 

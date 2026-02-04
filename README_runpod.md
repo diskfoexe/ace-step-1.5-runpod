@@ -6,7 +6,7 @@ Generate high-quality music from text descriptions using ACE-Step 1.5 - an open-
 
 - **ACE-Step 1.5 models** pre-loaded (~15GB)
 - **FastAPI server** with REST API endpoints
-- **LLM-powered features** for lyrics and caption generation
+- **LLM-powered features** for lyrics/caption formatting
 - **CUDA 12.8** optimized for NVIDIA GPUs
 
 ## API Endpoints
@@ -17,7 +17,6 @@ Generate high-quality music from text descriptions using ACE-Step 1.5 - an open-
 | `/v1/models` | GET | List available models |
 | `/release_task` | POST | Create music generation task |
 | `/query_result` | POST | Query task results |
-| `/create_random_sample` | POST | Generate random music parameters via LLM |
 | `/format_input` | POST | Enhance lyrics/caption via LLM |
 | `/v1/audio` | GET | Download generated audio |
 

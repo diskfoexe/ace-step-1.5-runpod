@@ -7,7 +7,7 @@ A Docker image for running ACE-Step 1.5's built-in API server with models pre-ba
 - **ACE-Step's built-in API server** with full feature set
 - **Multi-stage Docker build** with models baked in (~15GB image)
 - **GPU support** via NVIDIA CUDA 12.8 runtime
-- **LLM-powered features**: random sample generation, lyrics/caption formatting
+- **LLM-powered features**: lyrics/caption formatting
 
 ## Quick Start
 
@@ -62,7 +62,6 @@ See the [ACE-Step API documentation](https://github.com/ace-step/ACE-Step-1.5/bl
 | `/v1/models` | GET | List available models |
 | `/release_task` | POST | Create music generation task |
 | `/query_result` | POST | Batch query task results |
-| `/create_random_sample` | POST | Generate random music parameters via LLM |
 | `/format_input` | POST | Format and enhance lyrics/caption via LLM |
 | `/v1/audio` | GET | Download audio file |
 

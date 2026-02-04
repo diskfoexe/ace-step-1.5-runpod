@@ -26,5 +26,5 @@ vllm==0.8.5
 
 # Utilities
 pydantic==2.10.6
-huggingface-hub==0.30.2
+huggingface-hub==0.34.0
 tqdm==4.67.1

@@ -23,3 +23,5 @@ jobs:
           context: .
           push: true
           tags: koby423/ace-step-1.5-runpod:latest
+          build-args: |
+            HF_TOKEN=${{ secrets.HF_TOKEN }}

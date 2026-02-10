@@ -40,7 +40,8 @@ ENV HF_HUB_ENABLE_HF_TRANSFER=1
 # -----------------------------------------------------------------------------
 # Stage 2: Runtime - Install ACE-Step and run from /app
 # -----------------------------------------------------------------------------
-FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04 as runtime
+#FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04 as runtime
+FROM valyriantech/ace-step-1.5:latest as runtime
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -87,7 +88,7 @@ RUN git clone https://github.com/diskfoexe/ACE-Step-1.5.git /app && \
 RUN ln -s /app/checkpoints /usr/local/lib/python3.11/dist-packages/checkpoints
 
 # Copy models from model-downloader stage into /app/checkpoints
-COPY --from=model-downloader /models/checkpoints /app/checkpoints
+#COPY --from=model-downloader /models/checkpoints /app/checkpoints
 
 # Create placeholder for acestep-v15-turbo to satisfy check_main_model_exists()
 # We use acestep-v15-base instead, but the check looks for all MAIN_MODEL_COMPONENTS

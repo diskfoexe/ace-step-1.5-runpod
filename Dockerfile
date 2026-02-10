@@ -78,7 +78,7 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 ENV PATH="/root/.local/bin:$PATH"
 
 # Clone ACE-Step directly into /app and install
-RUN git clone https://github.com/diskfoexe/ACE-Step-1.5.git /app && \
+RUN git clone --depth 1 https://github.com/diskfoexe/ACE-Step-1.5.git /app && \
     rm -rf /app/.git && \
     uv pip install --system --no-cache .
 

@@ -25,10 +25,10 @@ ENV HF_HUB_ENABLE_HF_TRANSFER=1
 # Download main model package (includes VAE, Qwen3-Embedding, acestep-5Hz-lm-1.7B)
 # Uses HF_TOKEN for authentication with gated repos
 # Exclude acestep-v15-turbo since we use acestep-v15-base instead
-# RUN python -c "import os; from huggingface_hub import snapshot_download; snapshot_download('ACE-Step/Ace-Step1.5', local_dir='/models/checkpoints', token=os.environ.get('HF_TOKEN'), ignore_patterns=['acestep-v15-turbo/*'])"
+RUN python -c "import os; from huggingface_hub import snapshot_download; snapshot_download('ACE-Step/Ace-Step1.5', local_dir='/models/checkpoints', token=os.environ.get('HF_TOKEN'), ignore_patterns=['acestep-v15-turbo/*'])"
 
 # Download acestep-v15-base as the primary DiT model
-# RUN python -c "import os; from huggingface_hub import snapshot_download; snapshot_download('ACE-Step/acestep-v15-base', local_dir='/models/checkpoints/acestep-v15-base', token=os.environ.get('HF_TOKEN'))"
+RUN python -c "import os; from huggingface_hub import snapshot_download; snapshot_download('ACE-Step/acestep-v15-base', local_dir='/models/checkpoints/acestep-v15-base', token=os.environ.get('HF_TOKEN'))"
 
 # Optional: Download additional LM models (uncomment if needed)
 # RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('ACE-Step/acestep-5Hz-lm-0.6B', local_dir='/models/checkpoints/acestep-5Hz-lm-0.6B')"
@@ -40,8 +40,7 @@ ENV HF_HUB_ENABLE_HF_TRANSFER=1
 # -----------------------------------------------------------------------------
 # Stage 2: Runtime - Install ACE-Step and run from /app
 # -----------------------------------------------------------------------------
-#FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04 as runtime
-FROM valyriantech/ace-step-1.5:latest as runtime
+FROM nvidia/cuda:12.8.0-runtime-ubuntu22.04 as runtime
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
@@ -88,7 +87,7 @@ RUN git clone https://github.com/diskfoexe/ACE-Step-1.5.git /app && \
 RUN ln -s /app/checkpoints /usr/local/lib/python3.11/dist-packages/checkpoints
 
 # Copy models from model-downloader stage into /app/checkpoints
-#COPY --from=model-downloader /models/checkpoints /app/checkpoints
+COPY --from=model-downloader /models/checkpoints /app/checkpoints
 
 # Create placeholder for acestep-v15-turbo to satisfy check_main_model_exists()
 # We use acestep-v15-base instead, but the check looks for all MAIN_MODEL_COMPONENTS
